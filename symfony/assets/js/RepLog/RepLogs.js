@@ -1,9 +1,10 @@
 import React from 'react';
 import RepLogList from './RepLogList';
 import PropTypes from 'prop-types';
+import { replace } from 'core-js/fn/symbol';
 
 export default function RepLogs(props) {
-    const { withHeart, highlightedRowId, onRowClick } = props;
+    const { highlightedRowId, onRowClick, repLogs, withHeart } = props;
 
     let heart = '';
     if (withHeart) {
@@ -26,6 +27,7 @@ export default function RepLogs(props) {
                 <RepLogList
                     highlightedRowId={highlightedRowId}
                     onRowClick={onRowClick}
+                    repLogs={repLogs}
                 />
                 <tfoot>
                     <tr>
@@ -74,5 +76,6 @@ export default function RepLogs(props) {
 RepLogs.propTypes = {
     highlightedRowId: PropTypes.any,
     onRowClick: PropTypes.func.isRequired,
+    RepLogs: PropTypes.array.isRequired,
     withHeart: PropTypes.bool
 }
