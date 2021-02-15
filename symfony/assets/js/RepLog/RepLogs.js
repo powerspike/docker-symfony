@@ -1,14 +1,30 @@
 import React from 'react';
 import RepLogList from './RepLogList';
 import PropTypes from 'prop-types';
-import { replace } from 'core-js/fn/symbol';
 
+function calculateTotalWeightLifted(repLogs) {
+    let total = 0;
+
+    for (let repLog of repLogs) {
+        total += repLog.totalWeightLifted;
+    }
+
+    return total;
+}
+const calculateTotalWeightFancier = repLogs => repLogs.reduce((total, log) => total + log.totalWeightLifted, 0);
 export default function RepLogs(props) {
-    const { highlightedRowId, onRowClick, repLogs, withHeart } = props;
+    const { highlightedRowId, onNewItemSubmit, onRowClick, repLogs, withHeart } = props;
 
     let heart = '';
     if (withHeart) {
         heart = <span>❤️</span>;
+    }
+
+    function handleFormSubmit(event) {
+        event.preventDefault();
+        console.log('form submitted');
+        console.log(event.target.elements.namedItem('reps').value);
+        onNewItemSubmit('Big Fat Cat', event.target.elements.namedItem('reps').value);
     }
 
     return (
@@ -33,20 +49,22 @@ export default function RepLogs(props) {
                     <tr>
                         <td>&nbsp;</td>
                         <th>Total</th>
-                        <th>TODO</th>
+                        <th>{calculateTotalWeightFancier(repLogs)}</th>
                         <td>&nbsp;</td>
                     </tr>
                 </tfoot>
             </table>
-            <form className="form-inline js-new-rep-log-form">
+            <form className="form-inline js-new-rep-log-form" onSubmit={handleFormSubmit}>
                 <div className="form-group">
                     <label className="sr-only control-label required" htmlFor="rep_log_item">
                         What did you lift?
                     </label>
-                    <select id="rep_log_item"
-                            name="item"
-                            required="required"
-                            className="form-control">
+                    <select
+                        className="form-control"
+                        id="rep_log_item"
+                        name="item"
+                        required="required"
+                    >
                         <option value="">
                             What did you lift?
                         </option>
@@ -61,10 +79,14 @@ export default function RepLogs(props) {
                     <label className="sr-only control-label required" htmlFor="rep_log_reps">
                         How many times?
                     </label>
-                    <input type="number" id="rep_log_reps"
-                        name="reps" required="required"
+                    <input
+                        className="form-control"
+                        id="rep_log_reps"
+                        name="reps"
                         placeholder="How many times?"
-                        className="form-control"/>
+                        required="required"
+                        type="number"
+                    />
                 </div>
                 {' '}
                 <button type="submit" className="btn btn-primary">I Lifted it!</button>
@@ -75,7 +97,8 @@ export default function RepLogs(props) {
 }
 RepLogs.propTypes = {
     highlightedRowId: PropTypes.any,
+    onNewItemSubmit: PropTypes.func.isRequired,
     onRowClick: PropTypes.func.isRequired,
-    RepLogs: PropTypes.array.isRequired,
+    repLogs: PropTypes.array.isRequired,
     withHeart: PropTypes.bool
 }

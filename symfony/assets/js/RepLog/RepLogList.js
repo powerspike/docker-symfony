@@ -27,5 +27,5 @@ export default function RepLogList(props) {
 RepLogList.propTypes = {
     highlightedRowId: PropTypes.any,
     onRowClick: PropTypes.func.isRequired,
-    RepLogs: PropTypes.array.isRequired
+    repLogs: PropTypes.array.isRequired
 };

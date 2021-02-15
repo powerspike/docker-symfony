@@ -22,6 +22,11 @@ export default class RepLogApp extends Component {
         this.setState({highlightedRowId: repLogId});
     }
 
+    handleNewItemSubmit(itemName, reps) {
+        console.log('TODO - handle this data');
+        console.log(itemName, reps);
+    }
+
     render() {
         const { highlightedRowId, repLogs } = this.state;
         const { withHeart } = this.props;
@@ -29,6 +34,7 @@ export default class RepLogApp extends Component {
         return (
             <RepLogs
                 highlightedRowId={highlightedRowId}
+                onNewItemSubmit={this.handleNewItemSubmit}
                 onRowClick={this.handleRowClick}
                 repLogs={repLogs}
                 withHeart={withHeart}
