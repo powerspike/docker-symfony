@@ -30,10 +30,11 @@ Encore
     .enableVersioning(Encore.isProduction())
     .enableReactPreset()
     .configureBabel((babelConfig) => {
-
-    }, {
-        useBuiltIns: 'usage',
-        corejs: 2,
+        if (Encore.isProduction()) {
+            babelConfig.plugins.push(
+                'transform-react-remove-prop-types'
+            );
+        }
     })
 ;
 
