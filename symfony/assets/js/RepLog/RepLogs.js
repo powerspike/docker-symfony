@@ -1,8 +1,17 @@
 import React from 'react';
 import RepLogList from './RepLogList';
 import PropTypes from 'prop-types';
-import { replace } from 'core-js/fn/symbol';
 
+function calculateTotalWeightLifted(repLogs) {
+    let total = 0;
+
+    for (let repLog of repLogs) {
+        total += repLog.totalWeightLifted;
+    }
+
+    return total;
+}
+const calculateTotalWeightFancier = repLogs => repLogs.reduce((total, log) => total + log.totalWeightLifted, 0);
 export default function RepLogs(props) {
     const { highlightedRowId, onRowClick, repLogs, withHeart } = props;
 
@@ -33,7 +42,7 @@ export default function RepLogs(props) {
                     <tr>
                         <td>&nbsp;</td>
                         <th>Total</th>
-                        <th>TODO</th>
+                        <th>{calculateTotalWeightFancier(repLogs)}</th>
                         <td>&nbsp;</td>
                     </tr>
                 </tfoot>

@@ -28,10 +28,9 @@ export default class RepLogApp extends Component {
 
         return (
             <RepLogs
-                highlightedRowId={highlightedRowId}
+                {...this.props}
+                {...this.state}
                 onRowClick={this.handleRowClick}
-                repLogs={repLogs}
-                withHeart={withHeart}
             />
         )
     }
