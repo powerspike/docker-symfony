@@ -48,6 +48,8 @@ run encore:
 ```
 yarn install
 yarn run encore dev --watch
+or
+yarn run encore dev-server --disable-host-check
 ```
 
 **Start the built-in web server**
