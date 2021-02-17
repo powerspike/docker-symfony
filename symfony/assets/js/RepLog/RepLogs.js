@@ -2,6 +2,7 @@ import React from 'react';
 import RepLogList from './RepLogList';
 import PropTypes from 'prop-types';
 import RepLogCreator from './RepLogCreator';
+// import RepLogCreator from './RepLogCreatorControlledComponent';
 
 function calculateTotalWeightLifted(repLogs) {
     let total = 0;
