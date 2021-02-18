@@ -13,6 +13,16 @@ function fetchJson(url, options) {
         });
 }
 
+export function createRepLog(repLog) {
+    return fetchJson('/reps', {
+        method: 'POST',
+        body: JSON.stringify(repLog),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+}
+
 export function deleteRepLog(id) {
     return fetchJson(`/reps/${id}`, {
         method: 'DELETE'
