@@ -1,15 +1,10 @@
-/**
- * Returns a promise where the data is the rep log collection
- *
- * @return {Promise<Response>}
-*/
-
 function fetchJson(url, options) {
     return fetch(url, Object.assign({
         credentials: 'same-origin',
     }, options))
         .then(response => {
-            return response.json();
+            return response.text()
+                .then(text => text ? JSON.parse(text) : '');
         });
 }
 

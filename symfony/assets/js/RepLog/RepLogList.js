@@ -32,9 +32,12 @@ export default function RepLogList(props) {
         {repLogs.map((repLog) => {
             return (
                 <tr
-                    key={repLog.id}
                     className={highlightedRowId === repLog.id ? 'info' : ''}
+                    key={repLog.id}
                     onClick={() => onRowClick(repLog.id)}
+                    style={{
+                        opacity: repLog.isDeleting ? .3 : 1
+                    }}
                 >
                     <td>{repLog.itemLabel}</td>
                     <td>{repLog.reps}</td>
