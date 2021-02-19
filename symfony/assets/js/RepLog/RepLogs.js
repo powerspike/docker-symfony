@@ -49,9 +49,9 @@ export default function RepLogs(props) {
             <hr/>
 
             {successMessage && (
-                <alert className="alert-success text-center">
+                <div className="alert-success text-center">
                     {successMessage}
-                </alert>
+                </div>
             )}
 
             <table className="table table-striped">

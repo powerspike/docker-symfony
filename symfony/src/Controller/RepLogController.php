@@ -5,8 +5,8 @@ namespace App\Controller;
 use App\Entity\RepLog;
 use App\Form\Type\RepLogType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -51,7 +51,11 @@ class RepLogController extends BaseController
         $em->remove($repLog);
         $em->flush();
 
-        return new Response(null, 204);
+        // return new Response(null, 204);
+        // get Uncaught (in promise) SyntaxError: Unexpected end of JSON input
+        // with Response(null, 204)
+        // Chrome seems to require an empty object
+        return $this->createApiResponse([]);
     }
 
     /**

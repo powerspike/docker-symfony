@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import RepLogs from   './RepLogs';
 import PropTypes from 'prop-types';
-import { v4 as uuid } from 'uuid';
+// import { v4 as uuid } from 'uuid';
 import { createRepLog, deleteRepLog, getRepLogs } from '../api/rep_log_api';
 export default class RepLogApp extends Component {
     constructor(props) {
@@ -20,6 +20,7 @@ export default class RepLogApp extends Component {
         this.handleDeleteRepLog = this.handleDeleteRepLog.bind(this);
         this.handleHeartChange = this.handleHeartChange.bind(this);
         this.handleRowClick = this.handleRowClick.bind(this);
+        this.successMessageTimeoutHandle = 0;
     }
 
     componentDidMount() {
@@ -30,6 +31,10 @@ export default class RepLogApp extends Component {
                     isLoaded: true
                 })
             });
+    }
+
+    componentWillUnmount() {
+        clearTimeout(this.successMessageTimeoutHandle);
     }
 
     handleAddRepLog(item, reps) {
@@ -50,17 +55,12 @@ export default class RepLogApp extends Component {
                     return {
                         isSavingNewRepLog: false,
                         repLogs: newRepLogs,
-                        successMessage: 'Rep Log Saved!'
                     };
                 })
+
+                this.setSuccessMessage('Rep Log Saved!');
             })
         ;
-        
-        // this.setState(prevState => {
-        //     const newRepLogs = [...prevState.repLogs, newRep];
-
-        //     return {repLogs: newRepLogs};
-        // })
     }
 
     handleDeleteRepLog(id) {
@@ -85,9 +85,6 @@ export default class RepLogApp extends Component {
     }
 
     render() {
-        // const { highlightedRowId, repLogs } = this.state;
-        // const { withHeart } = this.props;
-
         return (
             <RepLogs
                 {...this.props}
@@ -98,6 +95,20 @@ export default class RepLogApp extends Component {
                 onRowClick={this.handleRowClick}
             />
         )
+    }
+
+    setSuccessMessage(message) {
+        this.setState({
+            successMessage: message
+        });
+
+        clearTimeout(this.successMessageTimeoutHandle);
+        this.successMessageTimeoutHandle = setTimeout(() => {
+            this.setState({
+                successMessage: ''
+            });
+            this.successMessageTimeoutHandle = 0;
+        }, 3000)
     }
 }
 
