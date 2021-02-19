@@ -10,8 +10,10 @@ export default class RepLogApp extends Component {
         this.state = {
             highlightedRowId: null,
             isLoaded: false,
+            isSavingNewRepLog: false,
             numberOfHearts: 1,
-            repLogs: []
+            repLogs: [],
+            successMessage: ''
         };
 
         this.handleAddRepLog = this.handleAddRepLog.bind(this);
@@ -36,12 +38,20 @@ export default class RepLogApp extends Component {
             reps: reps
         };
 
+        this.setState({
+            isSavingNewRepLog: true
+        });
+
         createRepLog(newRep)
             .then(repLog => {
                 this.setState(prevState => {
                     const newRepLogs = [...prevState.repLogs, repLog];
 
-                    return {repLogs: newRepLogs};
+                    return {
+                        isSavingNewRepLog: false,
+                        repLogs: newRepLogs,
+                        successMessage: 'Rep Log Saved!'
+                    };
                 })
             })
         ;
