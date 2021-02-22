@@ -19,6 +19,7 @@ export default function RepLogs(props) {
         highlightedRowId,
         isLoaded,
         isSavingNewRepLog,
+        newRepLogValidationErrorMessage,
         numberOfHearts,
         onAddRepLog,
         onDeleteRepLog,
@@ -85,6 +86,7 @@ export default function RepLogs(props) {
                 <div className="col-md-6">
                     <RepLogCreator
                         onAddRepLog={onAddRepLog}
+                        validationErrorMessage={newRepLogValidationErrorMessage}
                     />
                 </div>
             </div>
@@ -96,6 +98,7 @@ RepLogs.propTypes = {
     highlightedRowId: PropTypes.any,
     isLoaded: PropTypes.bool.isRequired,
     isSavingNewRepLog: PropTypes.bool.isRequired,
+    newRepLogValidationErrorMessage: PropTypes.string.isRequired,
     numberOfHearts: PropTypes.number.isRequired,
     onAddRepLog: PropTypes.func.isRequired,
     onDeleteRepLog: PropTypes.func.isRequired,

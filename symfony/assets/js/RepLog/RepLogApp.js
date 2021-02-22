@@ -11,6 +11,7 @@ export default class RepLogApp extends Component {
             highlightedRowId: null,
             isLoaded: false,
             isSavingNewRepLog: false,
+            newRepLogValidationErrorMessage: '',
             numberOfHearts: 1,
             repLogs: [],
             successMessage: ''
@@ -54,11 +55,21 @@ export default class RepLogApp extends Component {
 
                     return {
                         isSavingNewRepLog: false,
+                        newRepLogValidationErrorMessage: '',
                         repLogs: newRepLogs,
                     };
                 })
 
                 this.setSuccessMessage('Rep Log Saved!');
+            })
+            .catch(error => {
+                error.response.json().then(errorsData => {
+                    const errors = errorsData.errors;
+                    const firstError = errors[Object.keys(errors)[0]];
+                    this.setState({
+                        newRepLogValidationErrorMessage: firstError
+                    });
+                })
             })
         ;
     }
