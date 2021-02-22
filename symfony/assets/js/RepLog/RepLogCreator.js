@@ -14,9 +14,10 @@ export default class RepLogCreator extends Component {
 
         this.itemOptions = [
             { id: 'cat', text: 'Cat' },
+            { id: 'coffee_cup', text: 'Coffee Cup' },
             { id: 'fat_cat', text: 'Big Fat Cat' },
             { id: 'laptop', text: 'My Laptop' },
-            { id: 'coffee_cup', text: 'Coffee Cup' }
+            { id: 'invalid_item', text: 'Dark Matter' }
         ];
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
