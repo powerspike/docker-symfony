@@ -3,6 +3,7 @@
 namespace App\EventSubscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
 class ApiCsrfValidationSubscriber implements EventSubscriberInterface
@@ -16,7 +17,21 @@ class ApiCsrfValidationSubscriber implements EventSubscriberInterface
         $request = $event->getRequest();
 
         // no validation needed on safe methods
-        if (!$request->isMethodSafe(false)) {
+        if ($request->isMethodSafe(false)) {
+            return;
+        }
+
+        if (!$request->attributes->get('_is_api')) {
+            return;
+        }
+
+        if ($request->headers->get('Content-Type') != 'application/json') {
+            $response = new JsonResponse([
+                'message' => 'Invalid Content-Type'
+            ], 415);
+
+            $event->setResponse($response);
+
             return;
         }
     }
